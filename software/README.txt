@@ -9,7 +9,6 @@ X.X.X, and inside drop the server, plugins and patches
 
 Have the build directly in that directory
 
-
 Example:
 
 	software/
@@ -45,4 +44,10 @@ Example:
 	│   └── pir-plugin-ee-7.0-QAT-76-dist.zip
 	└── README.txt
 
+
+### manual download
+
+bacause box.com does not offer FTP access for free tier accounts...
+
+https://sourceforge.net/projects/pentaho/files/
 

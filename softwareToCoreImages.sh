@@ -84,7 +84,7 @@ then
 	unzip $serverFile -d $tmpDir/pentaho > /dev/null
 
 	echo Creating docker image...
-	docker build -t $DOCKERTAG -f dockerfiles/Dockerfile-CE-FromFile dockerfiles
+	docker build --build-arg CURRENT_HOST_UID=$(id -u) --build-arg CURRENT_HOST_GID=$(id -g) -t $DOCKERTAG -f dockerfiles/Dockerfile-CE-FromFile dockerfiles
 
 
 else

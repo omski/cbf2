@@ -8,8 +8,10 @@ ENV CURRENT_GID=$CURRENT_HOST_GID
 
 # Create pentaho user and establish its environment.
 # Users are 'Homeless' within a docker container build.
-RUN mkdir /home/pentaho && groupadd --gid $CURRENT_GID --system pentaho \
- && useradd --uid $CURRENT_UID --gid $CURRENT_GID --no-log-init --system --password $(perl -e'print crypt("pentaho", "aa")' ) -G sudo pentaho \
+RUN mkdir /home/pentaho \
+ && echo "alias ll='ls -la --color=auto -la'" >> /home/pentaho/.bashrc \
+ && groupadd --system pentaho -r \
+ && useradd --no-log-init --system --password $(perl -e'print crypt("pentaho", "aa")' ) -g pentaho -G sudo -s /bin/bash -r -d /home/pentaho pentaho \
  && chown --recursive pentaho:pentaho /home/pentaho
 
 # Add large files first with the correct ownership to reduce layers (true size on disk)
@@ -53,7 +55,7 @@ RUN rm /pentaho/*server*/promptuser.sh; \
 
 
 # set alias
-RUN echo "alias ll='ls -la --color=auto -la'" >> /home/pentaho/.bashrc
+# RUN echo "alias ll='ls -la --color=auto -la'" >> /home/pentaho/.bashrc
 
 
 # Configure mondrian logs
